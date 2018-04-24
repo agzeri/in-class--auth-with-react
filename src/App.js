@@ -21,6 +21,17 @@ class Protected extends Component {
   }
 }
 
+class Login extends Component {
+  render() {
+    return (
+      <div>
+        <p>You must log in to view this page.</p>
+        <button>Log in</button>
+      </div>
+    )
+  }
+}
+
 class App extends Component {
   render() {
     return (
@@ -33,7 +44,7 @@ class App extends Component {
 
           <Switch>
             <Route exact path='/public' component={Public} />
-            <Route exact path='/Protected' component={Protected} />
+            <Route exact path='/login' component={Login} />
           </Switch>
         </div>
       </Router>
