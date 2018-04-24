@@ -9,6 +9,18 @@ import {
   Link
 } from 'react-router-dom'
 
+const AuthService = {
+  isAuthenticated: false,
+  authenticate(cb) {
+    this.isAuthenticated = true,
+    setTimeout(cb, 100)
+  },
+  signout(cb) {
+    this.isAuthenticated = false,
+    setTimeout(cb, 100)
+  }
+}
+
 class Public extends Component {
   render() {
     return <h3>Public</h3>
