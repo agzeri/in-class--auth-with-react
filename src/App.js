@@ -49,14 +49,15 @@ class Login extends Component {
 
   render() {
     const { redirectToReferrer } = this.state
+    const { from } = this.props.location.state || { from: { pathname: '/' } }
 
     if ( redirectToReferrer === true) {
-      return <Redirect to='/' />
+      return <Redirect to={from} />
     }
 
     return (
       <div>
-        <p>You must log in to view this page.</p>
+        <p>You must log in to view this page. <strong>{ from.pathname }</strong>, my friend :)</p>
         <button onClick={this.handleLogin}>Log in</button>
       </div>
     )
@@ -67,7 +68,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
     AuthService.isAuthenticated === true
       ? <Component {...props} />
-      : <Redirect to='/login' />
+      : <Redirect to={{
+        pathname: '/login',
+        state: { from: props.location }
+      }} />
   )} />
 )
 
