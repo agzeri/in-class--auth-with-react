@@ -6,7 +6,8 @@ import {
   HashRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect
 } from 'react-router-dom'
 
 const AuthService = {
@@ -44,6 +45,14 @@ class Login extends Component {
   }
 }
 
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={(props) => (
+    AuthService.isAuthenticated === true
+      ? <Component {...props} />
+      : <Redirect to='/login' />
+  )} />
+)
+
 class App extends Component {
   render() {
     return (
@@ -57,6 +66,7 @@ class App extends Component {
           <Switch>
             <Route exact path='/public' component={Public} />
             <Route exact path='/login' component={Login} />
+            <PrivateRoute path='/protected' component={Protected} />
           </Switch>
         </div>
       </Router>
