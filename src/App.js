@@ -35,11 +35,29 @@ class Protected extends Component {
 }
 
 class Login extends Component {
+  state = {
+    redirectToReferrer: false
+  }
+
+  handleLogin = () => {
+    AuthService.authenticate(() => {
+      this.setState(() => ({
+        redirectToReferrer: true
+      }))
+    })
+  }
+
   render() {
+    const { redirectToReferrer } = this.state
+
+    if ( redirectToReferrer === true) {
+      return <Redirect to='/' />
+    }
+
     return (
       <div>
         <p>You must log in to view this page.</p>
-        <button>Log in</button>
+        <button onClick={this.handleLogin}>Log in</button>
       </div>
     )
   }
